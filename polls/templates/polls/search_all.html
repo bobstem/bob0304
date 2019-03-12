@@ -1,16 +1,16 @@
-{% load static %}
-<style>
-    th, td {padding: 5px;  border: 1px solid #cccccc}
-    .position_left{ text-align: left}
-    .position_right{ text-align: right}
-</style>
+{% extends "base_generic.html" %}
+
+{% block content %}
+
 <form action="{% url 'polls:search_form' %}" method="post">
 {% csrf_token %}
-<h2>Результаты поиска
+<h4>Результаты поиска
     <input style="width: 300px; margin-left: 20px" type="text" name="str_search" id="str_search" value="{{ request.POST.str_search }}" placeholder="код/артикул/название">
     <input style="width: 200px;" type="text" name="brand_search" id="brand_search" value="{{ request.POST.brand_search }}" placeholder="отбор по Бренду">
     <input type="submit" value="Поиск" />
-</h2>
+</h4>
+</form>
+
 <h4>Найдено {{ total_number }}. Цена от {{ min_price }} до {{ max_price }}</h4>
     <table>
     <thead>
@@ -43,4 +43,8 @@
     <p>Ниче не нашли</p>
 {% endif %}
 
-</form>
+{% endblock %}
+
+
+
+

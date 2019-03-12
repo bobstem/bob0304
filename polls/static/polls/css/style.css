@@ -1,4 +1,7 @@
-li a {
-    color: green;
-    font-style: italic;
-}
+th {text-align: center}
+
+th, td {padding: 5px;  border: 1px solid #cccccc}
+
+.position_left{ text-align: left}
+.position_right{ text-align: right}
+.position_center{ text-align: center}

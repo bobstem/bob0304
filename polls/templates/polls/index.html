@@ -1,6 +1,1 @@
-{% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static 'polls/css/style.css' %}" />
-
-<a href="{% url 'polls:search_form'%}">Status</a> <br>
-<a href="{% url 'polls:polls'%}">Голосование</a> <br>
-<a href="admin">admin</a>
+{% extends "base_generic.html" %}
