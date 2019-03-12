@@ -2,6 +2,10 @@
 
 {% block content %}
 
+<style>
+    input { border-radius: 5px; padding: 6px}
+</style>
+
 <form action="{% url 'polls:search_form' %}" method="post">
 {% csrf_token %}
 <h4>Результаты поиска
@@ -11,7 +15,7 @@
 </h4>
 </form>
 
-<h4>Найдено {{ total_number }}. Цена от {{ min_price }} до {{ max_price }}</h4>
+<h4 style="text-align: right">Найдено {{ total_number }}. Цена от {{ min_price }} до {{ max_price }}</h4>
     <table>
     <thead>
     <tr>
@@ -40,7 +44,7 @@
     </tbody>
     </table>
 {% else %}
-    <p>Ниче не нашли</p>
+    <h4 style="color: red; text-align: right">Ниче не нашли</h4>
 {% endif %}
 
 {% endblock %}

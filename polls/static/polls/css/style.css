@@ -1,3 +1,20 @@
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #cccccc;
+  font-style: italic;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #cccccc;
+  font-style: italic;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #cccccc;
+  font-style: italic;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #cccccc;
+  font-style: italic;
+}
+/*------------------------------*/
 th {text-align: center}
 
 th, td {padding: 5px;  border: 1px solid #cccccc}
@@ -5,3 +22,5 @@ th, td {padding: 5px;  border: 1px solid #cccccc}
 .position_left{ text-align: left}
 .position_right{ text-align: right}
 .position_center{ text-align: center}
+
+/*------------------------------*/
