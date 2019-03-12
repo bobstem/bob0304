@@ -7,8 +7,11 @@ from django.views import generic
 from polls.models import Question, Choice
 
 
-class IndexView(generic.ListView):
+class IndexView(generic.TemplateView):
     template_name = 'polls/index.html'
+
+class PollsView(generic.ListView):
+    template_name = 'polls/polls.html'
     context_object_name = 'latest_question_list'
 
     def get_queryset(self):
