@@ -1,0 +1,15 @@
+{% load static %}
+
+<h2>ALBUM</h2>
+{% if album_list %}
+    <ul>
+    {% for item in album_list %}
+        <li><a href="{% url 'polls:detail' item.id %}">
+            {{ item.name }} -- {{ item.release_date }} -- ({{ item.artist.last_name }} {{ item.artist.first_name }})
+        </a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+<input type="text" name="name_m" id="name_m" value="">

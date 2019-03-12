@@ -1,0 +1,13 @@
+{% load static %}
+
+<h2>MUSIC</h2>
+{% if musician_list %}
+    <ul>
+    {% for item in musician_list %}
+        <li><a href="{% url 'polls:detail' item.id %}">{{ item.last_name }} {{ item.first_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+<input type="text" name="name_m" id="name_m" value="">
