@@ -30,6 +30,19 @@ DATABASES = {
     },
     'status': {
         'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'test_status_db',
+        'USER': 'status_db',
+        'PASSWORD': 'segASFNb63qsdb',
+        'HOST': '127.0.0.1',
+        'PORT': '3307',
+        'CONN_MAX_AGE': 2000,
+        # 'OPTIONS':      {
+        #     'init_command': "SET sql_mode='STRICT_TRANS_TABLES'; SET innodb_strict_mode=1",
+        #     'charset':      'utf8mb4'
+        # }
+    },
+    'status99': {
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'web_users',
         'USER': 'web_users',
         'PASSWORD': 'users911',

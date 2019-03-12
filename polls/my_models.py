@@ -66,7 +66,7 @@ class TablePsPrice1C(models.Model):
     analogues = models.TextField()
     full_description = models.TextField()
     categories = models.TextField()
-    components = models.TextField()
+    # components = models.TextField()
     barcodes = models.TextField()
     suppliers_goods = models.TextField()
     goods_group = models.TextField()
