@@ -9,6 +9,8 @@ class StatusForm(ModelForm):
          model = TablePsPrice1C
          fields = ['id_product', 'article_clean', 'brand_clean', 'description']
 
+
+
 class SearchForm(forms.Form):
 
     str_search = forms.CharField(
@@ -43,4 +45,12 @@ class SearchForm(forms.Form):
         brand_search = cleaned_data.get("brand_search")
 
         if str_search=='' and brand_search=='':
-            raise forms.ValidationError("Хотя бы одно поле должно быть заполнено")
+            msg = "Хотя бы одно поле должно быть заполнено"
+            # self.add_error('brand_search', msg)
+            # self.add_error('str_search', msg)
+            # raise forms.ValidationError((msg), code='invalid')
+            raise forms.ValidationError([
+                forms.ValidationError((msg), code='invalid'),
+                # forms.ValidationError(('Error 1'), code='error1'),
+                # forms.ValidationError(('Error 2'), code='error2'),
+            ])
