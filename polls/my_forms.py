@@ -1,5 +1,6 @@
 from django import forms
-from django.forms import ModelForm
+from django.contrib.admin.widgets import AdminDateWidget
+from django.forms import ModelForm, DateField
 
 from polls.my_models import TablePsPrice1C
 
@@ -37,6 +38,9 @@ class SearchForm(forms.Form):
         min_length = 2,
         max_length = 100
     )
+
+    # my_field = DateField(widget=AdminDateWidget)
+    # start_date=forms.DateField(widget = forms.SelectDateWidget())
 
     # def clean_str_search(self):
     def clean(self):
