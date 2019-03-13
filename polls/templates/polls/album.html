@@ -1,4 +1,6 @@
-{% load static %}
+{% extends "base_generic.html" %}
+
+{% block content %}
 
 <h2>ALBUM</h2>
 {% if album_list %}
@@ -13,3 +15,6 @@
     <p>No polls are available.</p>
 {% endif %}
 <input type="text" name="name_m" id="name_m" value="">
+
+{% endblock %}
+
