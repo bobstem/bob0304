@@ -56,6 +56,14 @@ DATABASES = {
     }
 }
 
+WEBSERVICE = {
+    'HOST' : 'https://status-m.com.ua/ws/',
+    'USER' : 'wser',
+    'PASSWORD' : 'a1s2d3f4g5h6',
+
+    'PRODUCT_SEARCH': 'ProductSearch_new.1cws?wsdl',
+}
+
 LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'Europe/Kiev'

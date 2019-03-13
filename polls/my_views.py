@@ -9,7 +9,7 @@ from django.views import generic
 # class AlbumView(generic.ListView):
 #     model = Album.objects.filter(name__contains='соло')
 #     template_name = 'polls/album.html'
-from polls.soap_req import webService
+from polls.soap_req import WebService
 
 
 class AlbumView(generic.ListView):
@@ -84,7 +84,8 @@ def search_form(request):
         for item in search_list:
             codes += item.id_product + ';'
 
-        storage = webService(codes)
+        # storage = webService(codes)
+        storage = WebService(WebService.PRODUCT_SEARCH).getStoragePrice(codes)
         # print(storage.TotalSearchResults.TotalNumber)
         # print(storage.TotalSearchResults)
         if storage:
