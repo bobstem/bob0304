@@ -2,18 +2,18 @@ from django.db.models import Q
 from django.forms import forms
 
 from bob0304.lib_utils import only_letters_and_digits, str_to_int
-from polls.forms import SearchForm
+from polls.my_forms import SearchForm
 from polls.my_models import Album, Musician, TablePsPrice1C
 
 from django.shortcuts import get_object_or_404, render
 from django.template.context_processors import request
 from django.views import generic
 
+from polls.soap_req import WebService
 
 # class AlbumView(generic.ListView):
 #     model = Album.objects.filter(name__contains='соло')
 #     template_name = 'polls/album.html'
-from polls.soap_req import WebService
 
 
 class AlbumView(generic.ListView):
