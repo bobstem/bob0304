@@ -9,11 +9,12 @@ from django.shortcuts import get_object_or_404, render
 from django.template.context_processors import request
 from django.views import generic
 
-from polls.soap_req import webService
 
 # class AlbumView(generic.ListView):
 #     model = Album.objects.filter(name__contains='соло')
 #     template_name = 'polls/album.html'
+from polls.soap_req import WebService
+
 
 class AlbumView(generic.ListView):
     template_name = 'polls/album.html'
@@ -90,7 +91,8 @@ def search_form(request):
         for item in search_list:
             codes += item.id_product + ';'
 
-        storage = webService(codes)
+        # storage = webService(codes)
+        storage = WebService(WebService.PRODUCT_SEARCH).getStoragePrice(codes)
         # print(storage.TotalSearchResults.TotalNumber)
         # print(storage.TotalSearchResults)
         if storage:
