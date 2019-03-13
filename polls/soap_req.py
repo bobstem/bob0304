@@ -6,21 +6,21 @@ from django.conf import settings
 class WebService:
 
     PRODUCT_SEARCH = settings.WEBSERVICE['PRODUCT_SEARCH']
-    # CURIER_DATA = settings.WEBSERVICE['PRODUCT_SEARCH']
+    # COURIER_DATA = settings.WEBSERVICE['PRODUCT_SEARCH']
     client = None
 
     def __init__(self,func):
-        # self.func = func
-
         session = Session()
         lsettings = Settings(strict=False, xml_huge_tree=True)
         transport = Transport(session=session, timeout=10, cache=None)
         session.auth = HTTPBasicAuth(settings.WEBSERVICE['USER'], settings.WEBSERVICE['PASSWORD'])
         # session.headers = {"Content-Type": "text/xml; charset=utf-8"}
-        self.client = Client(settings.WEBSERVICE['HOST'] + func, transport=transport, settings=lsettings)
+        try:
+            self.client = Client(settings.WEBSERVICE['HOST'] + func, transport=transport, settings=lsettings)
+        except:
+            pass
 
     def getStoragePrice(self,codes):
-
         if self.client is None:
             result = []
         else:
