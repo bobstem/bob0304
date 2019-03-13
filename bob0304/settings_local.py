@@ -64,12 +64,91 @@ WEBSERVICE = {
     'PRODUCT_SEARCH': 'ProductSearch_new.1cws?wsdl',
 }
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {module} - {message}',
+            'style': '{',
+        },
+        # 'simpledb': {
+        #     'format': '{sql} - выполнялся {duration}',
+        #     'style': '{',
+        # },
+    },
+    'filters': {
+    #     'special': {
+    #         '()': 'project.logging.SpecialFilter',
+    #         'foo': 'bar',
+    #     },
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    # debug.info.warning.error.critical
+    'handlers': {
+        'console': {
+            # 'level': 'INFO',
+            'level': 'DEBUG',
+            # 'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        # 'mail_admins': {
+        #     'level': 'ERROR',
+        #     'class': 'django.utils.log.AdminEmailHandler',
+        #     'filters': ['special']
+        # },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
+            'encoding': 'utf-8',
+            'formatter': 'verbose'
+        },
+        # 'consoledb': {
+        #     'level': 'INFO',
+            # 'level': 'DEBUG',
+            # 'filters': ['require_debug_true'],
+            # 'class': 'logging.StreamHandler',
+            # 'formatter': 'simpledb'
+        # },
+
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'propagate': True,
+        },
+        'django.request': {
+            # 'handlers': ['mail_admins'],
+            'handlers': ['console'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        # 'myproject.custom': {
+        #     'handlers': ['console', 'mail_admins'],
+        #     'level': 'INFO',
+        #     'filters': ['special']
+        # },
+        'common': {
+            'handlers': ['file', 'console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'django.db.backends': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    }
+}
+
 LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'Europe/Kiev'
-
-USE_I18N = True
-
-USE_L10N = True
-
-USE_TZ = True

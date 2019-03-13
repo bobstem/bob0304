@@ -1,3 +1,5 @@
+import logging
+
 from requests import Session
 from requests.auth import HTTPBasicAuth
 from zeep import Settings, Transport, Client
@@ -18,7 +20,7 @@ class WebService:
         try:
             self.client = Client(settings.WEBSERVICE['HOST'] + func, transport=transport, settings=lsettings)
         except:
-            pass
+            logging.getLogger('common').critical('Ошибка соединения с '+ func)
 
     def getStoragePrice(self,codes):
         if self.client is None:
