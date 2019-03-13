@@ -2,7 +2,7 @@ from django.db.models import Q
 from django.forms import forms
 
 from bob0304.lib_utils import only_letters_and_digits, str_to_int
-from polls.my_forms import SearchForm
+from polls.my_forms import SearchForm, StatusForm
 from polls.my_models import Album, Musician, TablePsPrice1C
 
 from django.shortcuts import get_object_or_404, render
@@ -60,32 +60,29 @@ class MusicianView(generic.ListView):
 
 def search_form(request):
 
+    search_list_price = []
+    search_list = []  # TablePsPrice1C.objects.all()[:50]
+    min_price = 0
+    max_price = 0
+    total_number = 0
+
     if request.method == 'POST':
         form = SearchForm(request.POST)
 
         # check whether it's valid:
         if form.is_valid():
-            message = 'FORM IS VALID'
-        else:
-            message = 'FORM IS NOT VALID'
-        search_list = TablePsPrice1C.objects.filter(
-            Q(brand_clean__icontains=only_letters_and_digits(form.data['brand_search'])),
-            Q(id_product__icontains=form.data['str_search']) |
-            Q(article_clean__icontains=only_letters_and_digits(form.data['str_search'])) |
-            Q(search__icontains=form.data['str_search']) |
-            Q(analogues__icontains=form.data['str_search']) |
-            Q(categories__icontains=form.data['str_search']) |
-            Q(description__icontains=form.data['str_search'])
-        ).order_by('brand_clean')[:2000]
+            search_list = TablePsPrice1C.objects.filter(
+                Q(brand_clean__icontains=only_letters_and_digits(form.data['brand_search'])),
+                Q(id_product__icontains=form.data['str_search']) |
+                Q(article_clean__icontains=only_letters_and_digits(form.data['str_search'])) |
+                Q(search__icontains=form.data['str_search']) |
+                Q(analogues__icontains=form.data['str_search']) |
+                Q(categories__icontains=form.data['str_search']) |
+                Q(description__icontains=form.data['str_search'])
+            ).order_by('brand_clean')[:2000]
     else:
-        message = 'CREATE FORM'
         form = SearchForm()
-        search_list = [] # TablePsPrice1C.objects.all()[:50]
 
-    search_list_price = []
-    min_price = 0
-    max_price = 0
-    total_number = 0
     if search_list:
         codes = ''
         for item in search_list:
@@ -93,34 +90,28 @@ def search_form(request):
 
         # storage = webService(codes)
         storage = WebService(WebService.PRODUCT_SEARCH).getStoragePrice(codes)
-        # print(storage.TotalSearchResults.TotalNumber)
-        # print(storage.TotalSearchResults)
-        if storage:
-            if 'TotalSearchResults' in storage:
-                if 'ElSearchResults' in storage.TotalSearchResults:
-                    min_price = storage.TotalSearchResults.MinPrice
-                    max_price = storage.TotalSearchResults.MaxPrice
-                    total_number = storage.TotalSearchResults.TotalNumber
-                    for dbitem in search_list:
-                        for item in storage.TotalSearchResults.ElSearchResults:
-                            if dbitem.id_product == item.Code:
-                                dbitem.price = item.Price
-                                dbitem.balance = str_to_int(item.Balance)
-                                # if item.Balance:
-                                #     dbitem.balance = item.Balance
-                                # else:
-                                #     dbitem.balance = 0
-                                search_list_price.append(dbitem)
-                                break
+        if storage and 'TotalSearchResults' in storage and 'ElSearchResults' in storage.TotalSearchResults:
+            min_price = storage.TotalSearchResults.MinPrice
+            max_price = storage.TotalSearchResults.MaxPrice
+            total_number = storage.TotalSearchResults.TotalNumber
+            for dbitem in search_list:
+                for item in storage.TotalSearchResults.ElSearchResults:
+                    if dbitem.id_product == item.Code:
+                        dbitem.price = item.Price
+                        dbitem.balance = str_to_int(item.Balance)
+                        # if item.Balance:
+                        #     dbitem.balance = item.Balance
+                        # else:
+                        #     dbitem.balance = 0
+                        search_list_price.append(dbitem)
+                        break
 
     context = {
         'search_all': search_list_price,
         'min_price': min_price,
         'max_price': max_price,
         'total_number': total_number,
-        'message': message,
-        'form': form
-        # 'prim': prim
+        'form': form,
     }
     return render(request, 'polls/search_all.html', context)
 

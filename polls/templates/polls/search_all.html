@@ -6,12 +6,11 @@
     input { border-radius: 5px; padding: 6px}
 </style>
 
+<h4>Результаты поиска</h4>
 <form action="{% url 'polls:search_form' %}" method="post" name="form1">
     {% csrf_token %}
-    <h4>Результаты поиска
     {{ form }}
-    <input type="submit" value="Поиск" />
-    </h4>
+    <input class="search-form" type="submit" value="Поиск" />
 </form>
 
 {#<form action="{% url 'polls:search_form' %}" method="post" name="form1" id="form1">#}
@@ -37,6 +36,7 @@
     </tr>
     </thead>
     <tbody>
+
 {% if search_all %}
     {% for item in search_all %}
     <tr>
@@ -49,11 +49,12 @@
         <td class="position_right">{{ item.price }}</td>
     </tr>
     {% endfor %}
+{% else %}
+    <tr><td colspan="7"><h4 style="color: red; text-align: center">Ниче не нашли</h4></td></tr>
+{% endif %}
+
     </tbody>
     </table>
-{% else %}
-    <h4 style="color: red; text-align: right">Ниче не нашли</h4>
-{% endif %}
 
 {% endblock %}
 
